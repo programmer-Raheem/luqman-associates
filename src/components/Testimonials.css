@@ -1,0 +1,131 @@
+.testimonials-section {
+  padding: 80px 20px;
+  background: #f0f2f5;
+  text-align: center;
+}
+
+.testimonials-heading h2 {
+  font-size: 32px;
+  color: #c71f1f;
+  margin-bottom: 10px;
+  font-weight: 900;
+}
+
+.testimonials-heading p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.testimonial-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testimonials-slider {
+  overflow: hidden;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.testimonials-grid {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Cards */
+.testimonial-card {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px 20px;
+  margin: 0;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.testimonial-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.testimonial-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2a40;
+  font-weight: 700;
+}
+
+.testimonial-role {
+  font-size: 14px;
+  color: #1f2a40;
+  margin: 2px 0;
+}
+
+.testimonial-rating {
+  color: #c71f1f;
+  font-size: 14px;
+}
+
+.testimonial-text {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  border: none;
+  font-size: 28px;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+  color: #c71f1f;
+}
+
+.arrow:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.arrow.left { left: -20px; }
+.arrow.right { right: -20px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+ 
+  .arrow.left { left: -10px; }
+  .arrow.right { right: -10px; }
+}
+
+@media (max-width: 768px) {
+  
+  .arrow { font-size: 24px; padding: 8px 12px; }
+  .arrow.left { left: 10px; }
+  .arrow.right { right: 10px; }
+}
+

@@ -1,79 +1,83 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Projects.css";
 
-const projects = [
-  {
-    id: 1,
-    title: "Modern Villa",
-    desc: "Minimalistic villa with large windows and open spaces.",
-    img: "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Modern", "Minimalistic", "Luxury"],
-  },
-  {
-    id: 2,
-    title: "Luxury House",
-    desc: "Spacious luxury house with landscaped gardens and modern interiors.",
-    img: "https://images.pexels.com/photos/261146/pexels-photo-261146.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Luxury", "Residential", "Spacious"],
-  },
-  {
-    id: 3,
-    title: "Office Complex",
-    desc: "Contemporary office building designed for productivity.",
-    img: "https://images.pexels.com/photos/37347/office-sitting-room-executive-sitting.jpg",
-    tags: ["Commercial", "Contemporary", "Collaborative"],
-  },
-  {
-    id: 4,
-    title: "Beach House",
-    desc: "Serene beach house with panoramic ocean views.",
-    img: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Beachfront", "Minimalistic", "Relaxing"],
-  },
-  {
-    id: 5,
-    title: "Urban Apartment",
-    desc: "Smart urban apartment design with city views.",
-    img: "https://images.pexels.com/photos/373488/pexels-photo-373488.jpeg?auto=compress&cs=tinysrgb&w=800",
-    tags: ["Urban", "Modern", "Compact"],
-  },
-];
-
 const Projects = () => {
+  const projects = [
+    { title: "Modern House 1", description: "A luxurious modern home with a clean architectural profile.", image: "/img-1.jpg", pdf: "/pdf-1.pdf", tags: ["Modern", "Luxury", "Architecture"] },
+    { title: "Modern House 2", description: "Elegant interior design with premium woodwork and lighting.", image: "/img-2.jpg", pdf: "/pdf-2.pdf", tags: ["Interior", "Lighting", "Premium"] },
+    { title: "Villa House 3", description: "A high-end villa with custom marble and glass structure.", image: "/img-3.jpg", pdf: "/pdf-3.pdf", tags: ["Villa", "Glass", "Custom"] },
+    { title: "Furnished House 4", description: "Beautifully furnished home with modern layout and textures.", image: "/img-4.jpg", pdf: "/pdf-4.pdf", tags: ["Furnished", "Design", "Modern"] },
+    { title: "Classic House 5", description: "Classic architectural style blended with modern materials.", image: "/img-5.jpg", pdf: "/pdf-5.pdf", tags: ["Classic", "Architecture", "Premium"] },
+    { title: "Luxury House 6", description: "A fully detailed luxury home with top-tier finishes.", image: "/img-6.jpg", pdf: "/pdf-6.pdf", tags: ["Luxury", "Details", "High-End"] },
+  ];
+
+  const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
-  const containerRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Observer for section heading
+    const sectionObserver = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    if (sectionRef.current) sectionObserver.observe(sectionRef.current);
+
+    // Observer for project cards with enter and leave
+    const cards = document.querySelectorAll(".project-card-horizontal");
+    const cardObserver = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => setInView(entry.isIntersecting));
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          } else {
+            entry.target.classList.remove("animate-in"); // remove class when leaving
+          }
+        });
       },
       { threshold: 0.3 }
     );
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
+    cards.forEach((card) => cardObserver.observe(card));
+
+    return () => {
+      sectionObserver.disconnect();
+      cardObserver.disconnect();
+    };
   }, []);
 
   return (
-    <section className="projects-section-horizontal" ref={containerRef}>
-      <h2 className={`section-title ${inView ? "in-view" : ""}`}>Projects</h2>
+    <section ref={sectionRef} className="projects-section-horizontal" id="projects">
+      <h1 className={`section-title ${inView ? "in-view" : ""}`}>Projects</h1>
+
       <div className="horizontal-scroll">
         {projects.map((project, index) => (
           <div
-            key={project.id}
-            className={`project-card-horizontal ${inView ? "animate-in" : ""} direction-${index % 4}`}
+            className={`project-card-horizontal direction-${index % 4}`}
+            key={index}
           >
             <div className="project-image">
-              <img src={project.img} alt={project.title} />
-              <div className="overlay">
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-                <div className="tags">
-                  {project.tags.map((tag, idx) => (
-                    <span key={idx} className="tag">{tag}</span>
-                  ))}
-                </div>
+              <img src={project.image} alt={project.title} />
+            </div>
+
+            <div className="overlay">
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+
+              <div className="tags">
+                {project.tags.map((tag, i) => (
+                  <span className="tag" key={i}>
+                    {tag}
+                  </span>
+                ))}
               </div>
+
+              <a
+                className="view-project-btn"
+                href={project.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Project
+              </a>
             </div>
           </div>
         ))}

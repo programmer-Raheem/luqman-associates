@@ -1,47 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+/* ================================
+   PROJECTS SECTION
+================================== */
 .projects-section-horizontal {
-  padding: 100px 50px;
+  padding: 140px 50px 100px;
   background: linear-gradient(to bottom, #f5f5f5, #eaeaea);
   perspective: 1000px;
   overflow-x: hidden;
+  overflow-y: hidden; /* fix vertical scrollbar */
 }
 
+/* ================================
+   SECTION TITLE — FIXED + CLEAN
+================================== */
 .section-title {
   font-family: 'Roboto', sans-serif;
-  font-size: 60px;
-  font-weight: 700;
-  color: black;
-  text-align: left;
-  margin-bottom: 40px;
-  position: relative;
+  font-size: 60px !important;
+  font-weight: 900;
+  color: #111;
   display: inline-block;
-  cursor: default;
+  position: relative;
+
+  margin: 0 0 90px 0;    /* Top=0 Right=0 Bottom=90px Left=0 */
+  padding-bottom: 18px;  /* Gap between text & underline */
+  
+  z-index: 10;
 }
 
+/* UNDERLINE ANIMATION */
 .section-title::after {
   content: "";
   position: absolute;
-  bottom: -10px;
   left: 0;
+  bottom: 0;
+
   width: 0%;
-  height: 5px;
+  height: 8px;
   background: #c71f1f;
-  transition: width 0.8s ease-in-out;
+  border-radius: 5px;
+  transition: width 1s ease-in-out;
 }
 
-.section-title.hover-active::after,
+/* Animate when in view */
 .section-title.in-view::after {
   width: 100%;
 }
 
-/* Horizontal Scroll */
+/* Optional hover */
+.section-title:hover::after {
+  width: 100%;
+}
+
+
+/* ================================
+   HORIZONTAL SCROLL
+================================== */
 .horizontal-scroll {
   display: flex;
   gap: 40px;
   overflow-x: auto;
   scroll-behavior: smooth;
   padding-bottom: 20px;
+  margin-top: 20px;
 }
 
 .horizontal-scroll::-webkit-scrollbar {
@@ -53,20 +74,31 @@
   border-radius: 5px;
 }
 
+/* ================================
+   PROJECT CARD
+================================== */
 .project-card-horizontal {
-  min-width: 300px;
+  min-width: 320px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
   background: #fafafa;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.18);
   transform-style: preserve-3d;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.8s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.8s ease;
   cursor: pointer;
+  opacity: 0;
   position: relative;
-  opacity: 0; /* for scroll animation */
 }
 
-/* Project Image */
+/* CARD HOVER */
+.project-card-horizontal:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 38px rgba(0,0,0,0.25);
+}
+
+/* ================================
+   IMAGE
+================================== */
 .project-image {
   position: relative;
   border-radius: 20px;
@@ -77,36 +109,40 @@
   width: 100%;
   height: 450px;
   object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
-/* Hover gradient overlay */
+.project-card-horizontal:hover img {
+  transform: scale(1.06);
+  filter: brightness(78%);
+}
+
+/* DARK GRADIENT OVERLAY */
 .project-image::after {
   content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
-  height: 0; /* hidden initially */
-  background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  height: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0));
   transition: height 0.5s ease;
-  pointer-events: none;
 }
 
 .project-card-horizontal:hover .project-image::after {
-  height: 60%; /* expands from bottom on hover */
+  height: 60%;
 }
 
-/* Overlay text */
+/* ================================
+   OVERLAY TEXT
+================================== */
 .overlay {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  width: calc(100% - 40px);
-  text-align: left;
+  bottom: 25px;
+  left: 25px;
+  width: calc(100% - 50px);
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(18px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   color: #fff;
   font-family: 'Roboto', sans-serif;
@@ -117,41 +153,33 @@
   transform: translateY(0);
 }
 
-/* Heading style */
 .project-card-horizontal h3 {
   font-size: 26px;
   font-weight: 700;
-  color: #c71f1f;
   margin: 0 0 8px;
-  line-height: 1.2;
-  letter-spacing: 0.5px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+  color: #c71f1f;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 
-/* Description style */
 .project-card-horizontal p {
   font-size: 15px;
-  font-weight: 400;
   line-height: 1.5;
-  margin: 0;
   color: #fff;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  margin: 0;
 }
 
-/* Tags */
+/* TAGS */
 .tags {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .tag {
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 3px 10px;
+  background: rgba(255,255,255,0.22);
+  padding: 4px 10px;
+  font-size: 11px;
   border-radius: 12px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -159,33 +187,55 @@
 }
 
 .project-card-horizontal:hover .tag {
-  background: rgba(199, 31, 31, 0.8);
+  background: rgba(199, 31, 31, 0.85);
 }
 
-/* Scroll animation - initial positions */
+/* BUTTON */
+.view-project-btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #ff3c3c;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.view-project-btn:hover {
+  background: #d72b2b;
+}
+
+/* ================================
+   SCROLL ANIMATIONS
+================================== */
 .direction-0 { transform: translateX(-100px); }
 .direction-1 { transform: translateX(100px); }
 .direction-2 { transform: translateY(-100px); }
 .direction-3 { transform: translateY(100px); }
 
-/* Animate to original position */
 .animate-in.direction-0,
 .animate-in.direction-1,
 .animate-in.direction-2,
 .animate-in.direction-3 {
-  transform: translateX(0) translateY(0);
+  transform: translate(0, 0);
   opacity: 1;
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-/* Responsive */
+/* ================================
+   RESPONSIVE
+================================== */
 @media (max-width: 1024px) {
   .projects-section-horizontal {
-    padding: 80px 30px;
+    padding: 120px 30px;
   }
+
   .section-title {
-    font-size: 48px;
+    font-size: 65px;
   }
+
   .project-image img {
     height: 350px;
   }
@@ -193,20 +243,40 @@
 
 @media (max-width: 768px) {
   .projects-section-horizontal {
-    padding: 60px 20px;
+    padding: 100px 20px;
   }
-  .section-title {
-    font-size: 40px;
+
+  .section-title h1 {
+    font-size: 60px;
+    margin-bottom: 60px;
   }
+
+  .horizontal-scroll {
+    gap: 18px;
+  }
+
   .project-image img {
     height: 250px;
+  }
+
+  .project-card-horizontal {
+    min-width: 80%;
   }
 }
 
 @media (max-width: 480px) {
   .section-title {
-    font-size: 32px;
+    font-size: 36px;
   }
+
+  .horizontal-scroll {
+    gap: 14px;
+  }
+
+  .project-card-horizontal {
+    min-width: 90%;
+  }
+
   .project-image img {
     height: 200px;
   }

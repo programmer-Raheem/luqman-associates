@@ -1,0 +1,48 @@
+.moving-headline {
+  width: 100%;
+  overflow: hidden;
+  background: #111; /* dark background for contrast */
+  padding: 20px 0;
+}
+
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 48px;
+  font-weight: 900;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  padding-left: 100%; /* start off-screen */
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(-20%);
+  }
+  90% {
+    transform: translateX(-60%); /* move completely out of view */
+  }
+  95% {
+    transform: translateX(-90%); /* hold here to create pause */
+  }
+  100% {
+    transform: translateX(0); /* restart from beginning */
+  }
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scrolling-text {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scrolling-text {
+    font-size: 20px;
+  }
+}
