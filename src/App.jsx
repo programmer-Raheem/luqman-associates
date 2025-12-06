@@ -11,7 +11,8 @@ import About from "./components/About";
 import Stats from "./components/Stats";
 
 // Services and packages
-import Services from "./components/services/Services";
+import Services from "./components/Services/Services";
+
 import InteriorPackage from "./components/services/Interior";
 import MainPackage from "./components/services/Main";
 import Faqs from "./components/Faqs"; // Optional FAQ section
